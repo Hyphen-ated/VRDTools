@@ -57,8 +57,11 @@ for line in f:
         draft_dates.append(current_draft_date)        
         
     # elems[1] is player name        
-    wins = int(elems[2])
-    losses = int(elems[3])
+    winstr = elems[2]
+    lossstr = elems[3]
+    wins = int(winstr) if len(winstr) > 0 else 0
+    losses = int(lossstr) if len(lossstr) > 0 else 0
+    
     seatwins[playeridx] += wins
     seatlosses[playeridx] += losses
 
