@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+drafts.tsv
+card stats output.tsv
+draft dates output.tsv
+seat stats output.tsv
+
+*.iml
+
+.idea/
