@@ -1,5 +1,9 @@
-﻿import math, json, datetime
-f = open("drafts.tsv", "r", encoding="utf-8")
+﻿# Usage: put draft data in input/drafts.tsv, 
+#        then run this. it will calculate a bunch of stuff and give you two files in output/, containing data for
+#        card stats and seat stats, in the format expected for being pasted into my spreadsheet
+
+import math, json, datetime, util.cardparse as cardparse
+f = open("input/drafts.tsv", "r", encoding="utf-8")
       
 playeridx = 0
 draftidx = 0
@@ -15,17 +19,11 @@ card_release_dates = {}
 date_format = "%Y-%m-%d"
 
 carddict = {}
-with open("../scryfall-default-cards.json", encoding="utf-8") as json_file:
+with open("input/scryfall-default-cards.json", encoding="utf-8") as json_file:
     data = json.load(json_file)
     for card in data:
-        legal = card['legalities']['vintage']
-        if ( legal == 'legal' or legal == 'restricted'):
-            name = card['name'].replace(u"û", "u").replace(u"ö", "o").replace(u"á", "a").replace(u"é", "e").replace(u"à", "a").replace(u"â", "a").replace(u"ú", "u").replace(u"í", "i")
-            if card['layout'] == 'transform' or card['layout'] == 'flip' or card['layout'] == 'adventure':
-                idx = name.find(" // ")
-                if idx > -1:
-                    name = name[:idx]
-            name = name.lower()
+        if cardparse.legal_in_vintage(card):
+            name = cardparse.cardname(card)
             carddict[name] = card
             
             #find the earliest date each card was released
@@ -33,7 +31,6 @@ with open("../scryfall-default-cards.json", encoding="utf-8") as json_file:
             carddate = datetime.datetime.strptime(carddatestr, date_format)
             if name not in card_release_dates.keys() or card_release_dates[name] > carddate:
                 card_release_dates[name] = carddate
-            carddict[name] = card
 
 current_draft_id = None
 current_draft_date = None
@@ -115,7 +112,8 @@ for line in f:
     if playeridx >= 8:
         playeridx = 0
 
-outf = open("card stats output.tsv", "w")
+outf = open("output/card stats.tsv", "w", encoding="utf-8")
+print("Writing output/card stats.tsv")
 for (card, picks) in cardpicks.items():
     
     regularSum = 0
@@ -164,7 +162,8 @@ for (card, picks) in cardpicks.items():
 
 outf.close()
 
-seatoutf = open("seat stats output.tsv", 'w+')
+seatoutf = open("output/seat stats.tsv", 'w', encoding="utf-8")
+print("Writing output/seat stats.tsv")
 for seatidx in range(8):
     seatoutf.write("seat " + str(seatidx+1) + "\t" + str(seatwins[seatidx]) + "\t" + str(seatlosses[seatidx]) + "\n")
 seatoutf.close()
