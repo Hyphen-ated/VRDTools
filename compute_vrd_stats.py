@@ -17,13 +17,22 @@ seatwins = [0] * 8
 seatlosses =[0] * 8
 card_release_dates = {}
 date_format = "%Y-%m-%d"
+picked_then_later_banned_cardnames = {}
+
+with open("input/cards-later-banned-in-vintage.txt", encoding="utf-8") as ban_file:
+    for line in ban_file:
+        card = line.strip().lower()
+        picked_then_later_banned_cardnames[card] = True
+
+
 
 carddict = {}
 with open("input/scryfall-default-cards.json", encoding="utf-8") as json_file:
     data = json.load(json_file)
     for card in data:
-        if cardparse.legal_in_vintage(card):
-            name = cardparse.cardname(card)
+        name = cardparse.cardname(card)
+        if cardparse.legal_in_vintage(card) or name in picked_then_later_banned_cardnames:
+            
             carddict[name] = card
             
             #find the earliest date each card was released
