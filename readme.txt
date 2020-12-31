@@ -1,8 +1,10 @@
 These are some python 3 tools I wrote to help manage stuff related to running MTG Vintage Rotisserie drafts, as well as
 calculating statistics for them.
 
-They all require scryfall-default-cards.json to be placed in the input/ folder. Get the latest from
-https://archive.scryfall.com/json/scryfall-default-cards.json 
+They all require scryfall-default-cards.json to be placed in the input/ folder. Get the latest Default Cards from
+https://scryfall.com/docs/api/bulk-data and rename it to scryfall-default-cards.json
+
+If a card picked in a VRD is later banned in vintage, the name of that card should be put in cards-later-banned-in-vintage.txt
 
 The "compute" tools are made to be used with my spreadsheet at 
 https://docs.google.com/spreadsheets/d/12LKNtBof-FTxO6Zyzrv8MN-2AEexw5aHV_YnlwD46WM/edit#gid=997264821

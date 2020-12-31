@@ -2,10 +2,11 @@ def legal_in_vintage(card):
     legal = card['legalities']['vintage']
     return legal == 'legal' or legal == 'restricted'
 
+layouts_to_ignore_back = ["transform", "flip", "adventure", "modal_dfc"]    
 def cardname(card):
     name = card['name']
     name = simplify_name_characters(name)
-    if card['layout'] == 'transform' or card['layout'] == 'flip' or card['layout'] == 'adventure':
+    if card['layout'] in layouts_to_ignore_back:
         name = extract_first_card_name_only(name)
     return name.lower()
 
