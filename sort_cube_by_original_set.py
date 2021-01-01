@@ -16,17 +16,16 @@ card_release_sets = {}
 sets = {}
 
 def new_set(name, date, fullname):
-    set = {}
-    set['name'] = name
-    set['fullname'] = fullname
-    set['date'] = date
-    set['cards'] = []
+    set = {'name': name,
+           'fullname': fullname,
+           'date': date,
+           'cards': []}
     return set
 
 with open("input/scryfall-default-cards.json", encoding="utf-8") as json_file:
     data = json.load(json_file)
     for card in data:
-        if card['reprint'] is True:
+        if card['reprint'] is True or card['set_type'] == 'token':
             continue
         cardset = card['set']        
         name = cardparse.cardname(card)  
