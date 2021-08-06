@@ -80,7 +80,7 @@ for line in f:
             continue
                 
         if card_release_dates[card] > current_draft_date:
-            raise Exception(card + " was released on " + card_release_dates[card] + " but " + current_draft_id + " happened on " + current_draft_date + " (the draft has the wrong legality date)")
+            raise Exception(card + " was released on " + str(card_release_dates[card]) + " but " + current_draft_id + " happened on " + str(current_draft_date) + " (the draft has the wrong legality date)")
                     
         if card not in cardwins:
             cardwins[card] = wins

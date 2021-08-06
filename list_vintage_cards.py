@@ -14,18 +14,14 @@ with open("input/scryfall-default-cards.json", encoding="utf-8") as json_file:
     data = json.load(json_file)
     i = 0
     cardseen = {}
+    cardnames = []
     print("processing " + str(len(data)) + " cards")
     for card in data:
         if cardparse.legal_in_vintage(card):
             name = cardparse.cardname(card)
             if name not in cardseen:
                 cardseen[name] = True
-                try:
-                    outf.write(name+'\n')
-                    unquotename = name.replace('"', '\\"')
-                    jsoutf.write('"' + unquotename + '",\n')
-                except:
-                    print(name + " had a problem")
+                cardnames.append(name)                
     if include_later_banned_cards:
         for card in later_banned_file:
             try:
@@ -36,7 +32,14 @@ with open("input/scryfall-default-cards.json", encoding="utf-8") as json_file:
             except:
                 print(name + " had a problem (from cards-later-banned-in-vintage.txt)")
         
-    
+    cardnames.sort()
+    for name in cardnames:
+        try:
+            outf.write(name+'\n')
+            unquotename = name.replace('"', '\\"')
+            jsoutf.write('"' + unquotename + '",\n')
+        except:
+            print(name + " had a problem")
     
     jsoutf.write("];")
     outf.close()
