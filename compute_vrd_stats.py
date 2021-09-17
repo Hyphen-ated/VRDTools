@@ -76,7 +76,7 @@ for line in f:
     for card in elems[4:]:
         card = card.strip()
         card = card.lower()
-        if not card:
+        if not card or card == "unknown_pick":
             continue
                 
         if card_release_dates[card] > current_draft_date:
@@ -153,6 +153,8 @@ for (card, picks) in cardpicks.items():
     cost = "-"
     if "mana_cost" in carddata:
         cost = carddata["mana_cost"]
+    cmc = carddata["cmc"]       
+    coloridentity = "".join(carddata["color_identity"])
                 
     outp = card + "\t" +\
            str(len(picks)) + "\t" +\
@@ -163,7 +165,9 @@ for (card, picks) in cardpicks.items():
            str(cardlosses[card]) + "\t" +\
            str(winpows[card]) + "\t" +\
            str(losspows[card]) + "\t" +\
-           cost + "\n"
+           cost + "\t" +\
+           coloridentity + "\t" +\
+           str(cmc) + "\n"
            
 
     
