@@ -13,7 +13,7 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID of the stats spreadsheet (this one is a test copy)
-spreadsheet_id = '10ggtuvvL4q6A5Ub3Ddx7XcEtlpRJMD79DWoCuuq5pv0'
+spreadsheet_id = '12LKNtBof-FTxO6Zyzrv8MN-2AEexw5aHV_YnlwD46WM'
 all_drafts_range = 'Raw Material For Stats!A103:CA'
 
 cur_service = None
