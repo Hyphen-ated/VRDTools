@@ -133,6 +133,44 @@ def upload_sheet_data(sheetName, startRowIdx, startColIdx, nestedArrays):
     request = service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id, body=body)
     request.execute()
 
+def upload_vintage_cards():
+    sheetName = "allcards"
+    service = get_service()
+    cards = []
+    with open("output/vintage_cards.txt", "r") as f:
+        for line in f:
+            cards.append([line.strip()])
+
+    maxHeight = len(cards) + 1
+
+    sheetId = get_sheet_id_by_name(service, sheetName)
+
+    update_rows = [{'values': [{'userEnteredValue': describe_val(f)} for f in e]} for e in cards]
+    update_range = {'sheetId': sheetId,
+                    'startRowIndex': 1,
+                    'startColumnIndex': 0}
+    body = {
+        'requests': [
+            {
+                'updateSheetProperties': { # first make sure the sheet is big enough
+                    'properties': {
+                        'sheetId': sheetId,
+                        'gridProperties': {
+                            'rowCount': maxHeight
+                        }
+                    },
+                    "fields": "gridProperties(rowCount)"
+                }
+            },
+            {    # add the actual data
+                'updateCells': {'rows': update_rows, 'range': update_range, 'fields': 'userEnteredValue'}
+            }
+        ]
+    }
+
+    request = service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id, body=body)
+    request.execute()
+
 
 def read_tsv_to_arrs(filename):
     outarr = []
