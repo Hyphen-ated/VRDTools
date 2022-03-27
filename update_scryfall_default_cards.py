@@ -6,6 +6,7 @@ import requests, urllib.request
 import update_gsheets, list_vintage_cards
 
 def get_data_url():
+    
     r = requests.get("https://api.scryfall.com/bulk-data")
 
     for desc in r.json()["data"]:
@@ -15,6 +16,13 @@ def get_data_url():
     raise RuntimeError("Couldn't find default_cards in scryfall response")
 
 if __name__ == '__main__':
-    urllib.request.urlretrieve(get_data_url(), "input/scryfall-default-cards.json")
+    print("Getting bulk data URL...")
+    data_url = get_data_url()
+    print("Downloading new Scryfall data...")
+    urllib.request.urlretrieve(data_url, "input/scryfall-default-cards.json")
+    print("Processing new data locally...")
     list_vintage_cards.list_vintage_cards(include_later_banned_cards=True)
+    print("Updating spreadsheet with card list...")
     update_gsheets.upload_vintage_cards()
+    print("Done")
+    
