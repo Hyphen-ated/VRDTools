@@ -12,7 +12,8 @@ from google.auth.transport.requests import Request
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-# The ID of the stats spreadsheet (this one is a test copy)
+# The ID of the stats spreadsheet
+# If your name is not Hyphen-ated, you'll need to edit this to point to YOUR copy of my sheet
 spreadsheet_id = '12LKNtBof-FTxO6Zyzrv8MN-2AEexw5aHV_YnlwD46WM'
 all_drafts_range = 'Raw Material For Stats!A103:CA'
 
