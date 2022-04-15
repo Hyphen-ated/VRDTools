@@ -1,4 +1,4 @@
-﻿# Usage: put draft data in input/drafts.tsv, 
+﻿# Usage: put draft data in input/drafts.tsv (or run update_gsheets)
 #        then run this. it will figure out the earliest each draft could have been, based on the release dates of the
 #        cards, and output this to output/draft dates.tsv
 
