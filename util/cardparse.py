@@ -3,6 +3,10 @@ import unidecode
 def legal_in_vintage(card):
     legal = card['legalities']['vintage']
     return legal == 'legal' or legal == 'restricted'
+    
+def legal_in_modern(card):
+    legal = card['legalities']['modern']
+    return legal == 'legal'
 
 layouts_to_ignore_back = ["transform", "flip", "adventure", "modal_dfc"]    
 def cardname(card):
