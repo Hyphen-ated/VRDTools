@@ -4,6 +4,8 @@
 
 import requests, urllib.request
 import update_gsheets, list_vintage_cards
+import os.path
+from os import path
 
 def get_data_url():
     
@@ -22,7 +24,8 @@ if __name__ == '__main__':
     urllib.request.urlretrieve(data_url, "input/scryfall-default-cards.json")
     print("Processing new data locally...")
     list_vintage_cards.list_vintage_cards(include_later_banned_cards=True)
-    print("Updating spreadsheet with card list...")
-    update_gsheets.upload_vintage_cards()
+    if path.exists("input/gsheet_credentials.json"):
+        print("Updating spreadsheet with card list...")
+        update_gsheets.upload_vintage_cards()
     print("Done")
     
