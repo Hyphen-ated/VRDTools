@@ -1,5 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 
+.DS_Store
 /input/*
 !/input/_.txt
 
@@ -8,4 +9,4 @@
 
 *.iml
 /.idea/
-/util/__pycache__
+__pycache__

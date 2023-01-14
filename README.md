@@ -4,9 +4,14 @@ These are some python 3 tools I wrote to help manage stuff related to running MT
 calculating statistics for them. It's not written to really be usable by anyone but me, but if you would like to
 look at my code, here it is.
 
-## Usage:
 
-You need to `pip install unidecode`
+## Setup:
+
+```sh
+pip3 install unidecode google-api-python-client google_auth_oauthlib requests
+```
+
+## Usage:
 
 Run `update_scryfall_default_cards.py` before anything else to get the latest scryfall data and upload it to the [stats sheet](https://docs.google.com/spreadsheets/d/12LKNtBof-FTxO6Zyzrv8MN-2AEexw5aHV_YnlwD46WM/edit#gid=997264821).
 
